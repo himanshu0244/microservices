@@ -1,13 +1,13 @@
-package com.codet.microservies;
+package com.codet.microservices;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MicroserviesApplication {
+public class MicroservicesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MicroserviesApplication.class, args);
+		SpringApplication.run(MicroservicesApplication.class, args);
 	}
 
 }
