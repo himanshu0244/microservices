@@ -19,16 +19,16 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 public class UserController {
 
 	@Autowired
-	private UserDaoService service;
+	private UserDaoService userService;
 
 	@GetMapping("/users")
 	public List<User> retrieveAllUsers() {
-		return service.findAll();
+		return userService.findAll();
 	}
 	
 	@PostMapping("/users")
 	public ResponseEntity<Object> createUser(@Valid @RequestBody User user) {
-		User savedUser = service.save(user);
+		User savedUser = userService.save(user);
 		// CREATED
 		// /user/{id}     savedUser.getId()
 		
@@ -37,13 +37,14 @@ public class UserController {
 			.path("/{id}")
 			.buildAndExpand(savedUser.getUserId()).toUri();
 		
-		return ResponseEntity.created(location).build();
+//		return  ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+			return	ResponseEntity.created(location).build();
 		
 	}
 	
 	@DeleteMapping("/users/{id}")
 	public void deleteUser(@PathVariable int id) {
-		User user = service.deleteById(id);
+		User user = userService.deleteById(id);
 		
 		if(user==null)
 			throw new UserNotFoundException("id-"+ id);		
@@ -51,7 +52,7 @@ public class UserController {
 	
 	@GetMapping("/users/{id}")
 	public User retrieveUser(@PathVariable int id) {
-		User user = service.findOne(id);
+		User user = userService.findOne(id);
 		
 		if(user==null)
 			throw new UserNotFoundException("id-"+ id);	
